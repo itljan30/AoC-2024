@@ -1,24 +1,60 @@
+# NOTE Not solved. I'm probably making this way more complicated than it needs to be
+
+from copy import copy
+
+
 def test_decreasing(report: list[str]) -> bool:
     for i in range(len(report) - 1):
         diff = int(report[i]) - int(report[i + 1])
         if not 1 <= diff <= 3:
-            return False
+            return test_decreasing_removed(copy(report), i + 1)
     return True
+
+
+def test_decreasing_removed(report: list[str], remove: int) -> bool:
+    result1 = False
+    if remove == 1:
+        result1 = test_decreasing_removed(copy(report), 0)
+
+    report.pop(remove)
+
+    result2 = True
+    for i in range(len(report) - 1):
+        diff = int(report[i]) - int(report[i + 1])
+        if not 1 <= diff <= 3:
+            result2 = False
+
+    return result1 or result2
 
 
 def test_increasing(report: list[str]) -> bool:
     for i in range(len(report) - 1):
         diff = int(report[i]) - int(report[i + 1])
         if not -3 <= diff <= -1:
-            return False
+            return test_increasing_removed(copy(report), i + 1)
     return True
 
 
+def test_increasing_removed(report: list[str], remove: int) -> bool:
+    result1 = False
+    if remove == 1:
+        result1 = test_increasing_removed(copy(report), 0)
+
+    report.pop(remove)
+
+    result2 = True
+    for i in range(len(report) - 1):
+        diff = int(report[i]) - int(report[i + 1])
+        if not -3 <= diff <= -1:
+            result2 = False
+
+    return result1 or result2
+
+
 def validate_report(report: list[str]) -> bool:
-    if int(report[0]) - int(report[1]) < 0:
-        return test_increasing(report)
-    else:
-        return test_decreasing(report)
+    result1 = test_increasing(copy(report))
+    result2 = test_decreasing(copy(report))
+    return result1 or result2
 
 
 def main():
