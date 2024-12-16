@@ -1,5 +1,3 @@
-// NOTE Not solved, there is a bug somewhere. Python version is solved though.
-
 #include "dyn_arr.h"
 
 #include <stdio.h>
@@ -94,7 +92,6 @@ void swapValues(Rule *rule, DynArr *update) {
 }
 
 bool testRule(Rule *rule, DynArr *update) {
-    bool first = false;
     bool second = false;
 
     for (int i = 0; i < DynArr_len(update); i++) {
@@ -102,10 +99,8 @@ bool testRule(Rule *rule, DynArr *update) {
 
         if (currentInt == *rule->firstPage) {
             if (second == true) {
-                swapValues(rule, update);
                 return false;
             }
-            first = true;
         }
         if (currentInt == *rule->secondPage) {
             second = true;
@@ -115,24 +110,16 @@ bool testRule(Rule *rule, DynArr *update) {
     return true;
 }
 
-bool alreadyInvalid(DynArr *update, DynArr *invalidUpdates) {
-    for (int i = 0; i < DynArr_len(invalidUpdates); i++) {
-        if (update == (DynArr*)DynArr_at(invalidUpdates, i)) {
-            return true;
-        }
-    }
-    return false;
-}
-
 bool doSwaps(DynArr *rules, DynArr *updates, DynArr *invalidUpdates) {
     int noSwaps = true;
     for (int i = 0; i < DynArr_len(updates); i++) {
         for (int j = 0; j < DynArr_len(rules); j++) {
             if (!testRule(DynArr_at(rules, j), DynArr_at(updates, i))) {
-                if (!alreadyInvalid(DynArr_at(updates, i), invalidUpdates)) {
+                if (!DynArr_contains(invalidUpdates, DynArr_at(updates, i))) {
                     DynArr_append(invalidUpdates, DynArr_at(updates, i));
-                    noSwaps = false;
                 }
+                noSwaps = false;
+                swapValues(DynArr_at(rules, j), DynArr_at(updates, i));
             }
         }
     }
@@ -140,7 +127,6 @@ bool doSwaps(DynArr *rules, DynArr *updates, DynArr *invalidUpdates) {
     return noSwaps;
 }
 
-// BUG Currently getting an answer too high (needs to be 5723)
 void solveProblem(DynArr *rules, DynArr *updates) {
     DynArr *invalidUpdates = DynArr_new(sizeof(DynArr*));
     bool finished = false;
