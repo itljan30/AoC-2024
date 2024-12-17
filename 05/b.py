@@ -1,6 +1,3 @@
-# I couldn't find my bug in my C version so I wrote it in python
-
-
 def is_valid(rule: list[str], update: list[str]) -> bool:
     second = False
     for number in update:
