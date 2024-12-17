@@ -11,6 +11,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(DataStructures)
 
-add_subdirectory(5)
-add_subdirectory(6)
-add_subdirectory(7)
+add_subdirectory(05)
+add_subdirectory(06)
+add_subdirectory(07)
