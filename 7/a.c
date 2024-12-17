@@ -1,13 +1,10 @@
-// NOTE not solved
-
-
 #include "dyn_arr.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
 typedef struct {
-    int *answer;
+    long *answer;
     DynArr *terms;
 } Equation;
 
@@ -19,7 +16,7 @@ void Equation_free(void * data) {
 }
 
 DynArr *loadData() {
-    DynArr *equations = DynArr_new(sizeof(Equation*));
+    DynArr *equations = DynArr_new(sizeof(Equation));
 
     FILE *reader = fopen("input.txt", "r");
     if (reader == NULL) {
@@ -29,17 +26,17 @@ DynArr *loadData() {
 
     char line[256];
     while (fgets(line, sizeof(line), reader) != NULL) {
-        int answer;
+        long answer;
         char terms[256];
-        sscanf(line, "%i: %[0-9 ]", &answer, terms);
-
+        sscanf(line, "%li: %[0-9 ]", &answer, terms);
+        
         Equation *equation = malloc(sizeof(Equation));
 
-        int *ans = malloc(sizeof(int));
+        long *ans = malloc(sizeof(long));
         *ans = answer;
         equation->answer = ans;
 
-        DynArr *termsArray = DynArr_new(sizeof(int));
+        DynArr *termsArray = DynArr_new(sizeof(long));
 
         char *token = strtok(terms, " ");
         while (token != NULL) {
@@ -57,7 +54,7 @@ DynArr *loadData() {
     return equations;
 }
 
-bool solve(Equation *equation, int index, int total) {
+bool solve(Equation *equation, int index, long total) {
     if (index == DynArr_len(equation->terms)) {
         return (total == *equation->answer);
     }
@@ -71,15 +68,15 @@ bool isSolvable(Equation *equation) {
 
 int main() {
     DynArr *equations = loadData();
-    int total = 0;
+
+    long total = 0;
     for (int i = 0; i < DynArr_len(equations); i++) {
         Equation *equation = (Equation*)DynArr_at(equations, i);
         if (isSolvable(equation)) {
             total += *equation->answer;
         }
     }
-
-    printf("%i\n", total);
+    printf("%li\n", total);
 
     DynArr_destroy(equations, Equation_free);
 }

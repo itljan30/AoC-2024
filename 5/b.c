@@ -43,7 +43,7 @@ void loadData(DynArr *rules, DynArr *updates) {
     }
 
     while (fgets(line, sizeof(line), reader) != NULL) {
-        DynArr *update = DynArr_new(sizeof(int*));
+        DynArr *update = DynArr_new(sizeof(int));
         char *token = strtok(line, ",");
         while (token != NULL) {
             int *currentInt = malloc(sizeof(int));
@@ -128,7 +128,7 @@ bool doSwaps(DynArr *rules, DynArr *updates, DynArr *invalidUpdates) {
 }
 
 void solveProblem(DynArr *rules, DynArr *updates) {
-    DynArr *invalidUpdates = DynArr_new(sizeof(DynArr*));
+    DynArr *invalidUpdates = DynArr_new(sizeof(DynArr));
     bool finished = false;
     while (!finished) {
         finished = doSwaps(rules, updates, invalidUpdates);
@@ -146,8 +146,8 @@ void solveProblem(DynArr *rules, DynArr *updates) {
 }
 
 int main() {
-    DynArr *rules = DynArr_new(sizeof(Rule*));
-    DynArr *updates = DynArr_new(sizeof(DynArr*));
+    DynArr *rules = DynArr_new(sizeof(Rule));
+    DynArr *updates = DynArr_new(sizeof(DynArr));
     loadData(rules, updates);
 
     solveProblem(rules, updates);
