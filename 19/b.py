@@ -4,12 +4,10 @@
 
 
 import copy
-import time
 
 
-def find_matches(patterns: list[str], target: str, current_pattern: str, start) -> int:
+def find_matches(patterns: list[str], target: str, current_pattern: str) -> int:
     total = 0
-
     for pattern in patterns:
         if current_pattern == target:
             return 1
@@ -19,12 +17,10 @@ def find_matches(patterns: list[str], target: str, current_pattern: str, start) 
 
         potential_pattern = copy.copy(current_pattern) + pattern
 
-        print(potential_pattern)
-
         if not target.startswith(potential_pattern):
             continue
 
-        total += find_matches(patterns, target, potential_pattern, start)
+        total += find_matches(patterns, target, potential_pattern)
 
     return total
 
@@ -33,18 +29,18 @@ def main():
     patterns = []
     targets = []
 
-    with open("input.txt", "r") as file:
+    with open("in.txt", "r") as file:
         for line in file:
             if ',' in line:
                 patterns += line.split(', ')
-            elif line != '\n' and not line.startswith('//'):
+            elif line != '\n':
                 targets.append(line.strip())
 
     total = 0
     for target in targets:
-        # print(f"Checking: {target}")
-        if find_matches(patterns, target, "", time.time()):
-            total += 1
+        subtotal = find_matches(patterns, target, "")
+        print(subtotal)
+        total += subtotal
 
     print(total)
 
