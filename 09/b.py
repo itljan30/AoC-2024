@@ -1,3 +1,6 @@
+# NOTE Should work, it's just HORRIBLY optimized
+
+
 def expand(data: str) -> list[int | None]:
     id = 0
     disk = []

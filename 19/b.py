@@ -1,3 +1,8 @@
+# IDEA if we split the target into substrings that are the length of the longest given substring
+# or less, we would could probably brute force the other way a lot easier. I don't know exactly
+# how the brute forcing the other way would be, but I think it would be way more efficient maybe?
+
+
 import copy
 import time
 
