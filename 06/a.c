@@ -43,7 +43,7 @@ Coord findStart(DynArr *map) {
 Coord markLine(DynArr *map, Coord position, Coord direction) {
     while (true) {
         int nx = position.x + (1 * direction.x);
-        int ny = position.y + (1* direction.y);
+        int ny = position.y + (1 * direction.y);
 
         if (nx < 0 || nx >= strlen(DynArr_at(map, 0)) || ny < 0 || ny >= DynArr_len(map)) {
             position.x = -1;
