@@ -1,6 +1,3 @@
-from re import A
-
-
 def expand(data: str) -> list[int | None]:
     id = 0
     disk = []
