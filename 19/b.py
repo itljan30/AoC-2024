@@ -17,6 +17,8 @@ def find_matches(patterns: list[str], target: str, current_pattern: str) -> int:
 
         potential_pattern = copy.copy(current_pattern) + pattern
 
+        print(potential_pattern)
+
         if not target.startswith(potential_pattern):
             continue
 
@@ -29,7 +31,7 @@ def main():
     patterns = []
     targets = []
 
-    with open("in.txt", "r") as file:
+    with open("input.txt", "r") as file:
         for line in file:
             if ',' in line:
                 patterns += line.split(', ')

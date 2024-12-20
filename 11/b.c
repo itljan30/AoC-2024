@@ -1,6 +1,10 @@
 // NOTE not solved, not enough memory to store all of these numbers lol. 
 // program gets killed after about 1.5 minutes for me
 
+// NOTE I can probably get by just knowing the length of each number rather
+// than knowing the exact number, which would use less memory, but I don't
+// know how I would go about doing that.
+
 #include "dyn_arr.h"
 
 #include <stdio.h>
@@ -95,6 +99,7 @@ int main() {
 
     for (int i = 0; i < 75; i++) {
         rocks = update(rocks);
+        printf("%i\n", (int)DynArr_len(rocks));
     }
 
     printf("%i\n", (int)DynArr_len(rocks));
