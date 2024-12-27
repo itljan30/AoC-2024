@@ -18,7 +18,7 @@ void Equation_free(void * data) {
 DynArr *loadData() {
     DynArr *equations = DynArr_new(sizeof(Equation));
 
-    FILE *reader = fopen("input.txt", "r");
+    FILE *reader = fopen("input2.txt", "r");
     if (reader == NULL) {
         printf("ERROR: Unable to open input.txt\n");
         exit(EXIT_FAILURE);
@@ -79,12 +79,17 @@ int main() {
     DynArr *equations = loadData();
 
     long total = 0;
+    int track = 0;
     for (int i = 0; i < DynArr_len(equations); i++) {
         Equation *equation = (Equation*)DynArr_at(equations, i);
-        if (isSolvable(equation)) {
+        int answer = isSolvable(equation);
+        if (answer) {
+            track++;
             total += *equation->answer;
         }
     }
+
+    printf("%i\n", track);
     printf("%li\n", total);
 
     DynArr_destroy(equations, Equation_free);

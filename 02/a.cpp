@@ -1,6 +1,5 @@
 // NOTE this solves part 2, I forgot to make a new file for part 2 and instead just edited this file
 
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
