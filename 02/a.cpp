@@ -7,7 +7,6 @@
 #include <vector>
 
 std::vector<std::vector<int>> loadData() {
-
     std::ifstream file;
     file.open("input.txt");
     if (!file.is_open()) {

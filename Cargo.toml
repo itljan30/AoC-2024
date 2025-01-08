@@ -1,0 +1,12 @@
+[package]
+name = "AoC2024"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "day1_1"
+path = "01/a.rs"
+
+[[bin]]
+name = "day1_2"
+path = "01/b.rs"
