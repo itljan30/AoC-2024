@@ -32,11 +32,11 @@ def find_antinodes(nodes: list[Node]) -> list[Node]:
     return antinodes
 
 
-def clean_antinodes(nodes: list[Node]) -> list[Node]:
+def clean_antinodes(nodes: list[Node], max_x: int, max_y: int) -> list[Node]:
     cleaned_nodes: list[Node] = []
     seen_coords: list[tuple[int, int]] = []
     for node in nodes:
-        if 0 <= node.x < 50 and 0 <= node.y < 50:
+        if 0 <= node.x <= max_x and 0 <= node.y <= max_y:
             if (node.x, node.y) not in seen_coords:
                 seen_coords.append((node.x, node.y))
                 cleaned_nodes.append(node)
@@ -46,20 +46,25 @@ def clean_antinodes(nodes: list[Node]) -> list[Node]:
 
 def main():
     nodes: dict = {}
+    width = 0
+    height = 0
 
     with open("input.txt", "r") as file:
         for y, line in enumerate(file):
+            height = y
             for x, cell in enumerate(line.strip()):
                 if cell != '.':
                     nodes.setdefault(cell, list())
                     nodes[cell].append(Node(x, y))
+                width = x
+
 
     antinodes: list[Node] = []
 
     for node_type in nodes:
         antinodes += find_antinodes(nodes[node_type])
 
-    antinodes = clean_antinodes(antinodes)
+    antinodes = clean_antinodes(antinodes, width, height)
 
     print(len(antinodes))
 
